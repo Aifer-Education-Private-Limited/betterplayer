@@ -282,6 +282,10 @@ class _BetterPlayerMaterialControlsState
       duration: _controlsConfiguration.controlsHideTime,
       onEnd: _onPlayerHide,
       child: Container(
+        padding: _betterPlayerController!.isFullScreen
+            ? EdgeInsets.only(bottom: 30)
+            : EdgeInsets.only(),
+        // color: Colors.blue,
         height: _controlsConfiguration.controlBarHeight + 20.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
