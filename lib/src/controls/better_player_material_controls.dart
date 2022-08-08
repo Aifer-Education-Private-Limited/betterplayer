@@ -161,6 +161,7 @@ class _BetterPlayerMaterialControlsState
               Icons.warning,
               color: _controlsConfiguration.iconsColor,
               size: 42,
+              semanticLabel: 'Error occurred when trying to play video',
             ),
             Text(
               _betterPlayerController!.translations.generalDefaultError,
@@ -224,6 +225,7 @@ class _BetterPlayerMaterialControlsState
         child: Icon(
           betterPlayerControlsConfiguration.pipMenuIcon,
           color: betterPlayerControlsConfiguration.iconsColor,
+          semanticLabel: 'Picture in picture mode',
         ),
       ),
     );
@@ -268,6 +270,7 @@ class _BetterPlayerMaterialControlsState
         child: Icon(
           _controlsConfiguration.overflowMenuIcon,
           color: _controlsConfiguration.iconsColor,
+          semanticLabel: 'More options',
         ),
       ),
     );
@@ -354,6 +357,7 @@ class _BetterPlayerMaterialControlsState
                     ? _controlsConfiguration.fullscreenDisableIcon
                     : _controlsConfiguration.fullscreenEnableIcon,
                 color: _controlsConfiguration.iconsColor,
+                semanticLabel: 'Enable/Disable full screen',
               ),
             ),
           ),
@@ -544,6 +548,7 @@ class _BetterPlayerMaterialControlsState
                   ? _controlsConfiguration.muteIcon
                   : _controlsConfiguration.unMuteIcon,
               color: _controlsConfiguration.iconsColor,
+              semanticLabel: 'Mute',
             ),
           ),
         ),
@@ -564,6 +569,7 @@ class _BetterPlayerMaterialControlsState
               ? _controlsConfiguration.pauseIcon
               : _controlsConfiguration.playIcon,
           color: _controlsConfiguration.iconsColor,
+          semanticLabel: 'Play or Pause video',
         ),
       ),
     );
@@ -699,29 +705,32 @@ class _BetterPlayerMaterialControlsState
   }
 
   Widget _buildProgressBar() {
-    return Expanded(
-      flex: 40,
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: BetterPlayerMaterialVideoProgressBar(
-          _controller,
-          _betterPlayerController,
-          onDragStart: () {
-            _hideTimer?.cancel();
-          },
-          onDragEnd: () {
-            _startHideTimer();
-          },
-          onTapDown: () {
-            cancelAndRestartTimer();
-          },
-          colors: BetterPlayerProgressColors(
-              playedColor: _controlsConfiguration.progressBarPlayedColor,
-              handleColor: _controlsConfiguration.progressBarHandleColor,
-              bufferedColor: _controlsConfiguration.progressBarBufferedColor,
-              backgroundColor:
-                  _controlsConfiguration.progressBarBackgroundColor),
+    return Semantics(
+      label: 'Video Progress Bar. Drag to seek',
+      child: Expanded(
+        flex: 40,
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: BetterPlayerMaterialVideoProgressBar(
+            _controller,
+            _betterPlayerController,
+            onDragStart: () {
+              _hideTimer?.cancel();
+            },
+            onDragEnd: () {
+              _startHideTimer();
+            },
+            onTapDown: () {
+              cancelAndRestartTimer();
+            },
+            colors: BetterPlayerProgressColors(
+                playedColor: _controlsConfiguration.progressBarPlayedColor,
+                handleColor: _controlsConfiguration.progressBarHandleColor,
+                bufferedColor: _controlsConfiguration.progressBarBufferedColor,
+                backgroundColor:
+                    _controlsConfiguration.progressBarBackgroundColor),
+          ),
         ),
       ),
     );
