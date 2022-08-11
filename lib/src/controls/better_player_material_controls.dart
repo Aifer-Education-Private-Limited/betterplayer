@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:better_player/src/configuration/better_player_controls_configuration.dart';
 import 'package:better_player/src/controls/better_player_clickable_widget.dart';
 import 'package:better_player/src/controls/better_player_controls_state.dart';
@@ -8,7 +9,6 @@ import 'package:better_player/src/controls/better_player_progress_colors.dart';
 import 'package:better_player/src/core/better_player_controller.dart';
 import 'package:better_player/src/core/better_player_utils.dart';
 import 'package:better_player/src/video_player/video_player.dart';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -225,7 +225,24 @@ class _BetterPlayerMaterialControlsState
         child: Icon(
           betterPlayerControlsConfiguration.pipMenuIcon,
           color: betterPlayerControlsConfiguration.iconsColor,
-          semanticLabel: 'Picture in picture mode',
+          semanticLabel: 'enable Picture in picture mode',
+        ),
+      ),
+    );
+  }
+
+  ///Function added by RAbd.
+  Widget _buildMoveToFirstButton() {
+    return BetterPlayerMaterialClickableWidget(
+      onTap: () {
+        betterPlayerController!.seekTo(Duration.zero);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Icon(
+          Icons.restart_alt,
+          color: betterPlayerControlsConfiguration.iconsColor,
+          semanticLabel: 'Start video from first.',
         ),
       ),
     );
@@ -249,6 +266,8 @@ class _BetterPlayerMaterialControlsState
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   _buildPipButton(),
+                  if (betterPlayerControlsConfiguration.isPwdMode)
+                    _buildMoveToFirstButton()
                 ],
               ),
             ),
@@ -370,12 +389,15 @@ class _BetterPlayerMaterialControlsState
     if (!betterPlayerController!.controlsEnabled) {
       return const SizedBox();
     }
-    return Container(
-      child: Center(
-        child: AnimatedOpacity(
-          opacity: controlsNotVisible ? 0.0 : 1.0,
-          duration: _controlsConfiguration.controlsHideTime,
-          child: _buildMiddleRow(),
+    return Semantics(
+      label: 'Show or Hide controls',
+      child: Container(
+        child: Center(
+          child: AnimatedOpacity(
+            opacity: controlsNotVisible ? 0.0 : 1.0,
+            duration: _controlsConfiguration.controlsHideTime,
+            child: _buildMiddleRow(),
+          ),
         ),
       ),
     );
@@ -705,10 +727,10 @@ class _BetterPlayerMaterialControlsState
   }
 
   Widget _buildProgressBar() {
-    return Semantics(
-      label: 'Video Progress Bar. Drag to seek',
-      child: Expanded(
-        flex: 40,
+    return Expanded(
+      flex: 40,
+      child: Semantics(
+        label: 'Video Progress Bar. Drag to seek',
         child: Container(
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.symmetric(horizontal: 12),
