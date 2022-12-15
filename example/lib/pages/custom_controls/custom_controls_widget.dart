@@ -89,6 +89,7 @@ class _CustomControlsWidgetState extends State<CustomControlsWidget> {
                         child: Icon(
                           Icons.fast_rewind,
                           color: Colors.white,
+                          semanticLabel: 'seek Rewind',
                         ),
                       ),
                       InkWell(
@@ -105,6 +106,9 @@ class _CustomControlsWidgetState extends State<CustomControlsWidget> {
                               ? Icons.pause
                               : Icons.play_arrow,
                           color: Colors.white,
+                          semanticLabel: widget.controller!.isPlaying()!
+                              ? 'Pause'
+                              : 'Play',
                         ),
                       ),
                       InkWell(
@@ -129,6 +133,7 @@ class _CustomControlsWidgetState extends State<CustomControlsWidget> {
                         child: Icon(
                           Icons.fast_forward,
                           color: Colors.white,
+                          semanticLabel: 'seek Forward',
                         ),
                       ),
                     ],
