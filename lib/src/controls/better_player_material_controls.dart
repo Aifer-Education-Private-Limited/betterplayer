@@ -457,6 +457,7 @@ class _BetterPlayerMaterialControlsState
         _controlsConfiguration.skipBackIcon,
         size: 24,
         color: _controlsConfiguration.iconsColor,
+        semanticLabel: 'Seek backward button',
       ),
       onClicked: skipBack,
     );
@@ -468,6 +469,7 @@ class _BetterPlayerMaterialControlsState
         _controlsConfiguration.skipForwardIcon,
         size: 24,
         color: _controlsConfiguration.iconsColor,
+        semanticLabel: 'Seek forward button',
       ),
       onClicked: skipForward,
     );
@@ -481,6 +483,7 @@ class _BetterPlayerMaterialControlsState
               Icons.replay,
               size: 42,
               color: _controlsConfiguration.iconsColor,
+              semanticLabel: 'Replay button',
             )
           : Icon(
               controller.value.isPlaying
@@ -488,6 +491,8 @@ class _BetterPlayerMaterialControlsState
                   : _controlsConfiguration.playIcon,
               size: 42,
               color: _controlsConfiguration.iconsColor,
+              semanticLabel:
+                  controller.value.isPlaying ? 'Pause Button' : 'Play Button',
             ),
       onClicked: () {
         if (isFinished) {
