@@ -32,7 +32,7 @@ class BetterPlayerAsmsTrack {
   );
 
   factory BetterPlayerAsmsTrack.defaultTrack() {
-    return BetterPlayerAsmsTrack('', 0, 0, 0, 0, '', '');
+    return BetterPlayerAsmsTrack('', 0, 0, 2, 0, '', '');
   }
 
   @override
