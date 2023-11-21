@@ -272,7 +272,7 @@ class BetterPlayerController {
 
     ///Process data source
     await _setupDataSource(betterPlayerDataSource);
-    setTrack(BetterPlayerAsmsTrack.defaultTrack());
+    setTrack(BetterPlayerAsmsTrack('', 640, 360, 800000, 0, '', ''));
   }
 
   ///Configure subtitles based on subtitles source.
